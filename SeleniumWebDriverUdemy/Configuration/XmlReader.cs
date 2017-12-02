@@ -15,6 +15,16 @@ namespace SeleniumWebDriverUdemy.Configuration
             
         }
 
+        public int GetElementLoadTimeOut()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetPageLoadTimeOut()
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetPassword()
         {
             throw new NotImplementedException();

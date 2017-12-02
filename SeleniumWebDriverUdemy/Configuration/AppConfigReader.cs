@@ -33,5 +33,22 @@ namespace SeleniumWebDriverUdemy.Configuration
         {
             return ConfigurationManager.AppSettings.Get(AppConfigKeys.Website);
         }
+
+        public int GetPageLoadTimeOut()
+        {
+            string timeout = ConfigurationManager.AppSettings.Get(AppConfigKeys.PageLoadTimeOut);
+            if (timeout == null)
+                return 30;
+            return Convert.ToInt32(timeout);
+            
+        }
+
+        public int GetElementLoadTimeOut()
+        {
+            string timeout = ConfigurationManager.AppSettings.Get(AppConfigKeys.ElementLoadTimeOut);
+            if (timeout == null)
+                return 30;
+            return Convert.ToInt32(timeout);
+        }
     }
 }

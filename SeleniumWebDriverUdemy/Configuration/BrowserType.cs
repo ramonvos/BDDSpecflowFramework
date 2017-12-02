@@ -10,6 +10,7 @@ namespace SeleniumWebDriverUdemy.Configuration
     {
         Chrome,
         Firefox,
-        IEExplorer
+        IEExplorer,
+        PhantomJs
     }
 }

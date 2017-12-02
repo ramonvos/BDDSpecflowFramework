@@ -19,5 +19,9 @@ namespace SeleniumWebDriverUdemy.Interfaces
 
         string GetWebsite();
 
+        int GetPageLoadTimeOut();
+
+        int GetElementLoadTimeOut();
+
     }
 }

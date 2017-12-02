@@ -15,6 +15,8 @@ namespace SeleniumWebDriverUdemy.Settings
         public const string Username = "Username";
         public const string Password = "Password";
         public const string Website = "Website";
-        
+        public const string PageLoadTimeOut = "PageLoadTimeOut";
+        public const string ElementLoadTimeOut = "ElementLoadTimeOut";
+
     }
 }

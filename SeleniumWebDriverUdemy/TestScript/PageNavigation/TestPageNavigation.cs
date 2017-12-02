@@ -23,7 +23,7 @@ namespace SeleniumWebDriverUdemy.TestScript.PageNavigation
 
             //ObjectRepository.Driver.Navigate().GoToUrl(ObjectRepository.Config.GetWebsite());
 
-            NavigationHelper.NavigateToUrl(ObjectRepository.Config.GetWebsite());
+            
             Console.WriteLine("Title page is : {0}", WindowsHelper.GetTitle());
         }
     }

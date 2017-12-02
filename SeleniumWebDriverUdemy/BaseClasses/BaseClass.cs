@@ -3,7 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
+using SeleniumWebDriverUdemy.ComponentHelpers;
 using SeleniumWebDriverUdemy.Configuration;
 using SeleniumWebDriverUdemy.CustomException;
 using SeleniumWebDriverUdemy.Settings;
@@ -65,6 +67,21 @@ namespace SeleniumWebDriverUdemy.BaseClasses
             return options;
         }
 
+        private static PhantomJSOptions GetPhantomJsOptions()
+        {
+            PhantomJSOptions options = new PhantomJSOptions();
+            options.AddAdditionalCapability("takesScreenshot", false);
+            return options;
+        }
+
+        private static PhantomJSDriverService GetPhantomJsService()
+        {
+            PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
+            service.LogFile = "TestPhantomJS.log";
+            service.HideCommandPromptWindow = true;
+            return service;
+        }
+
         private static IWebDriver GetFirefoxDriver()
         {
             IWebDriver driver = new FirefoxDriver(pathFirefoxDriver);
@@ -80,6 +97,12 @@ namespace SeleniumWebDriverUdemy.BaseClasses
         private static IWebDriver GetIEDriver()
         {
             IWebDriver driver = new InternetExplorerDriver(GetIEOptions());
+            return driver;
+        }
+
+        private static IWebDriver GetPhantomJSDriver()
+        {
+            PhantomJSDriver driver = new PhantomJSDriver(GetPhantomJsService());
             return driver;
         }
 
@@ -99,17 +122,22 @@ namespace SeleniumWebDriverUdemy.BaseClasses
                 case BrowserType.IEExplorer:
                     ObjectRepository.Driver = GetIEDriver();
                     break;
+                case BrowserType.PhantomJs:
+                    ObjectRepository.Driver = GetPhantomJSDriver();
+                    break;
                 default:
                     throw new NoSutiableDriverFound("Driver Not Found : "+ ObjectRepository.Config.GetBrowser().ToString());
                     
             }
+            ObjectRepository.Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(ObjectRepository.Config.GetPageLoadTimeOut());
+            ObjectRepository.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ObjectRepository.Config.GetElementLoadTimeOut());
+            NavigationHelper.NavigateToUrl(ObjectRepository.Config.GetWebsite());
         }
 
         [AssemblyCleanup]
         public static void TearDown()
         {
             if (ObjectRepository.Driver != null)
-            
             {
                 ObjectRepository.Driver.Close();
                 ObjectRepository.Driver.Quit();
